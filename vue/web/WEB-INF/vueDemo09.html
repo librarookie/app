@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js" type="text/javascript"></script>
+</head>
+<body>
+    <div id="app">
+        <input ref = "iTitle">
+        <button v-on:click="insert()">insert</button>
+
+        <div v-for="item in items">
+            <span>{{item.title}}</span>
+            <span @click="remove(item.title)">删除</span>
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript">
+    var options = {
+        el : "#app",
+        data : {
+            items : [
+                {title : "伍六七"},
+                {title : "十三"}
+            ]
+        },
+        methods : {
+            remove : function (param) {
+                console.log("remove");
+                // 比较数组中那个商品的title与param一样
+                for (var i = 0; i < this.items.length; i++) {
+                    var item = this.items[i];
+                    if(item.title == param) {
+                        this.items.splice(i, 1);
+                    }
+                }
+            },
+            insert: function () {
+                // 从Vue框架中取值
+                // this 表示 vue对象
+                var itmeTitle = this.$refs.iTitle.value;
+                var item = {title : itmeTitle};
+                this.items.push(item);
+            }
+        }
+    }
+    var vue = new Vue(options);
+</script>
+</html>
